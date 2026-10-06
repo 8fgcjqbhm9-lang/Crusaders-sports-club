@@ -1,0 +1,96 @@
+header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px 18px;
+}
+
+header > .brand {
+  order: 1;
+  flex: 0 1 auto;
+}
+
+header > nav {
+  order: 2;
+  display: flex;
+  flex: 1 1 620px;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  min-width: 0;
+  margin: 0;
+  overflow: visible;
+}
+
+header > nav a {
+  display: inline-flex;
+  flex: 0 1 auto;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  min-height: 44px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  line-height: 1.25;
+  text-align: center;
+  white-space: normal;
+}
+
+header > nav a::after {
+  content: none !important;
+}
+
+header > .logo {
+  order: 3;
+  flex: 0 0 42px;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+  outline: 3px solid #f4d77d;
+  outline-offset: 3px;
+}
+
+header > nav a[href="info-events.html"],
+header > nav a[href="fixtures-results.html"] {
+  font-size: 0.75rem !important;
+}
+
+@media (max-width: 760px) {
+  header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  header > .brand {
+    align-self: center;
+    text-align: center;
+  }
+
+  header > .logo {
+    align-self: center;
+  }
+
+  header > nav {
+    flex: 0 1 auto;
+    width: 100%;
+  }
+
+  header > nav a {
+    flex: 1 1 112px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

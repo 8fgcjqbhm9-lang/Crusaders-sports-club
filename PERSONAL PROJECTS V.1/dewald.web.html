@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Crusaders Sports Club</title>
+  <style>
+    :root {
+      --navy: #071d32;
+      --navy-2: #11355c;
+      --gold: #e8b94a;
+      --gold-soft: #f4d77d;
+      --maroon: #6d1e2d;
+      --cream: #f6f0e5;
+      --muted: #d3cabd;
+      --panel: rgba(7, 29, 50, 0.8);
+      --panel-light: rgba(255, 255, 255, 0.06);
+      --line: rgba(246, 240, 229, 0.18);
+      --shadow: rgba(2, 8, 16, 0.28);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-2) 45%, var(--maroon) 100%);
+      color: var(--cream);
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    img { max-width: 100%; display: block; }
+
+    a { color: inherit; text-decoration: none; }
+
+    .page {
+      width: min(1200px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 26px 0 60px;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 18px 22px;
+      margin-bottom: 18px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(7, 29, 50, 0.72);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 16px 40px var(--shadow);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border: 3px solid var(--gold);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: var(--maroon);
+      box-shadow: 0 0 0 5px rgba(232, 185, 74, 0.18);
+      overflow: hidden;
+    }
+
+    .brand-mark img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .brand-text {
+      line-height: 1.1;
+      font-size: 0.82rem;
+    }
+
+    .brand-text span {
+      color: var(--gold-soft);
+      display: block;
+      font-size: 0.7rem;
+      letter-spacing: 0.22em;
+      margin-top: 3px;
+    }
+
+    nav {
+      display: flex;
+      gap: 6px;
+      flex-wrap: nowrap;
+      min-width: 0;
+      overflow: visible;
+      justify-content: center;
+    }
+
+    nav a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 0;
+      min-height: 32px;
+      flex: 0 0 auto;
+      padding: 7px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      transition: 0.2s ease;
+    }
+
+    nav a:hover {
+      background: rgba(232, 185, 74, 0.12);
+      border-color: rgba(232, 185, 74, 0.38);
+      color: var(--cream);
+      transform: translateY(-1px);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      align-items: center;
+      gap: 30px;
+      min-height: 620px;
+      padding: 24px 0 16px;
+    }
+
+    .hero-copy {
+      padding-right: 20px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 16px;
+      color: var(--gold-soft);
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-size: 0.72rem;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(3.5rem, 7vw, 7.4rem);
+      line-height: 0.9;
+      letter-spacing: -0.06em;
+      text-transform: uppercase;
+    }
+
+    .lead {
+      max-width: 620px;
+      margin-top: 22px;
+      color: var(--muted);
+      font-size: 1.08rem;
+      line-height: 1.7;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 30px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0 22px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.72rem;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+    }
+
+    .button.primary {
+      background: var(--gold);
+      color: #1a160d;
+      box-shadow: 0 16px 30px rgba(232, 185, 74, 0.3);
+    }
+
+    .button.secondary {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--cream);
+      border-color: var(--line);
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(120px, 1fr));
+      gap: 14px;
+      margin-top: 28px;
+      max-width: 760px;
+    }
+
+    .stat-card {
+      padding: 18px 16px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .stat-card strong {
+      display: block;
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      color: var(--gold-soft);
+      margin-bottom: 6px;
+    }
+
+    .stat-card span {
+      color: var(--muted);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .hero-visual {
+      position: relative;
+      min-height: 520px;
+      display: grid;
+      place-items: center;
+    }
+
+    .club-card {
+      position: relative;
+      width: min(100%, 460px);
+      height: 500px;
+      padding: 26px;
+      border: 1px solid var(--line);
+      border-radius: 32px 32px 22px 22px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(7,29,50,0.45));
+      box-shadow: 0 30px 60px rgba(7, 20, 31, 0.45);
+      overflow: hidden;
+    }
+
+    .club-card::before {
+      content: "";
+      position: absolute;
+      inset: 18px 18px auto 18px;
+      height: 180px;
+      background: linear-gradient(135deg, rgba(232, 185, 74, 0.9), rgba(109, 30, 45, 0.86));
+      border-radius: 26px;
+      opacity: 0.9;
+    }
+
+    .club-mark {
+      position: relative;
+      z-index: 1;
+      width: 150px;
+      height: 150px;
+      margin: 0 auto 16px;
+      border: 5px solid var(--gold);
+      border-radius: 50%;
+      overflow: hidden;
+      box-shadow: 0 18px 30px rgba(8, 13, 21, 0.4);
+      background: #0b1a2b;
+    }
+
+    .club-mark img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .club-copy {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
+
+    .club-copy .small {
+      color: var(--gold-soft);
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .club-copy h2 {
+      margin: 12px 0 8px;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1;
+      letter-spacing: -0.05em;
+      text-transform: uppercase;
+    }
+
+    .club-copy p {
+      margin: 0 auto;
+      max-width: 260px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .mini-sports {
+      position: absolute;
+      inset: auto auto 26px 26px;
+      right: 26px;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      z-index: 1;
+    }
+
+    .mini-sports a {
+      display: block;
+      padding: 12px 4px;
+      border-radius: 12px;
+      text-align: center;
+      font-size: 0.64rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: rgba(7, 29, 50, 0.66);
+      border: 1px solid var(--line);
+      color: var(--cream);
+      transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+    }
+
+    .mini-sports a:hover {
+      transform: translateY(-2px);
+      border-color: rgba(232, 185, 74, 0.6);
+      background: rgba(232, 185, 74, 0.12);
+    }
+
+    .main-section {
+      margin-top: 26px;
+      padding-top: 28px;
+      border-top: 1px solid var(--line);
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: end;
+      margin-bottom: 22px;
+    }
+
+    .section-header h3 {
+      margin: 0;
+      font-size: clamp(2rem, 4vw, 3rem);
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+    }
+
+    .section-header p {
+      margin: 0;
+      color: var(--muted);
+      max-width: 460px;
+      line-height: 1.6;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .sport-card {
+      padding: 22px 18px 18px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(10,30,50,0.48));
+    }
+
+    .sport-card .label {
+      display: inline-block;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(232, 185, 74, 0.12);
+      color: var(--gold-soft);
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .sport-card h4 {
+      margin: 18px 0 10px;
+      font-size: 1.45rem;
+      letter-spacing: -0.04em;
+    }
+
+    .sport-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 0.96rem;
+    }
+
+    .banner {
+      margin-top: 28px;
+      padding: 28px 24px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: linear-gradient(135deg, rgba(109,30,45,0.8), rgba(17,53,92,0.82));
+      display: grid;
+      grid-template-columns: 1.3fr 0.7fr;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .banner h3 {
+      margin: 6px 0 12px;
+      font-size: clamp(2rem, 3vw, 3rem);
+      letter-spacing: -0.04em;
+    }
+
+    .banner p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .banner .button {
+      justify-self: end;
+      width: 220px;
+    }
+
+    footer {
+      padding-top: 24px;
+      margin-top: 28px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+      font-size: 0.76rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 920px) {
+      .hero {
+        grid-template-columns: 1fr;
+        padding-top: 12px;
+      }
+
+      .stats,
+      .cards {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .banner {
+        grid-template-columns: 1fr;
+      }
+
+      .banner .button {
+        justify-self: start;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page {
+        width: min(100% - 20px, 620px);
+      }
+
+      header {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      nav {
+        justify-content: center;
+      }
+
+      .stats,
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .mini-sports {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="site.css" />
+    <link rel="icon" type="image/png" href="club-badge-favicon.png">
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="brand">
+        <div class="brand-mark">
+          <img src="L.jpg" alt="Crusaders Sports Club logo" />
+        </div>
+        <div class="brand-text">
+          Crusaders
+          <span>Sports Club</span>
+        </div>
+      </div>
+
+      <nav aria-label="Main navigation">
+        <a href="dewald.web.html">Home</a>
+        <a href="info-events.html">Events</a>
+        <a href="fixtures-results.html">Fixtures</a>
+        <a href="club-history.html">Club History</a>
+        <a href="players-coaches.html">Rugby</a>
+        <a href="cricket.html">Cricket</a>
+        <a href="squash.html">Squash</a>
+        <a href="hockey.html">Hockey</a><a href="club-memberships.html">Memberships</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <div class="eyebrow">One club. Many teams. One identity.</div>
+          <h1>Crusaders</h1>
+          <p class="lead">
+            A true sports club built for passion, performance, and community. From rugby to cricket,
+            squash to hockey, Crusaders brings together players, supporters, and families under one proud banner.
+          </p>
+
+          <div class="hero-actions">
+            <a class="button primary" href="fixtures-results.html">View fixtures</a>
+            <a class="button secondary" href="club-history.html">Discover the club</a>
+          </div>
+
+          <div class="stats">
+            <div class="stat-card">
+              <strong>12+</strong>
+              <span>Teams</span>
+            </div>
+            <div class="stat-card">
+              <strong>500+</strong>
+              <span>Members</span>
+            </div>
+            <div class="stat-card">
+              <strong>35+</strong>
+              <span>Events</span>
+            </div>
+            <div class="stat-card">
+              <strong>1964</strong>
+              <span>Established</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="club-card">
+            <div class="club-mark">
+              <img src="L.jpg" alt="Crusaders Sports Club crest" />
+            </div>
+
+            <div class="club-copy">
+              <div class="small">Founded on values</div>
+              <h2>Play hard.<br />Belong always.</h2>
+              <p>Competition, community, and character shape everything we do in the club.</p>
+            </div>
+
+            <div class="mini-sports">
+              <a href="players-coaches.html">Rugby</a>
+              <a href="cricket.html">Cricket</a>
+              <a href="squash.html">Squash</a>
+              <a href="hockey.html">Hockey</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="main-section">
+        <div class="section-header">
+          <h3>Our sports</h3>
+          <p>Crusaders is more than one team. It is a full club culture where every athlete and supporter can find their place.</p>
+        </div>
+
+        <div class="cards">
+          <article class="sport-card">
+            <div class="label">Main code</div>
+            <h4>Rugby</h4>
+            <p>Senior, junior, and development squads built on discipline, teamwork, and fearless competition.</p>
+          </article>
+
+          <article class="sport-card">
+            <div class="label">Field</div>
+            <h4>Cricket</h4>
+            <p>Fast-paced cricket, competitive fixtures, and a club atmosphere that values skill and composure.</p>
+          </article>
+
+          <article class="sport-card">
+            <div class="label">Indoor</div>
+            <h4>Squash</h4>
+            <p>Quick reactions, tactical play, and a focused training culture built around precision and endurance.</p>
+          </article>
+
+          <article class="sport-card">
+            <div class="label">Club life</div>
+            <h4>Hockey</h4>
+            <p>Teamwork, movement, and competitive spirit define a club culture built for every level of player.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="banner">
+        <div>
+          <div class="eyebrow">Join the club</div>
+          <h3>Be part of the next chapter.</h3>
+          <p>Whether you are playing, coaching, volunteering, or cheering from the sidelines, Crusaders offers a place to grow and belong.</p>
+        </div>
+
+        <a class="button primary" href="info-events.html">Get involved</a>
+      </section>
+    </main>
+
+    <footer>
+      <span>Crusaders Sports Club</span>
+      <span>Strength. Unity. Pride.</span>
+    </footer>
+  </div>
+</body>
+</html>
+

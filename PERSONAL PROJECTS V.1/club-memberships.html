@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Club Memberships | Crusaders Sports Club</title>
+  <style>
+    :root {
+      --navy: #0b2342;
+      --maroon: #541b2a;
+      --gold: #e7b84b;
+      --cream: #fff8e7;
+      --muted: #d7cfc5;
+      --panel: rgba(7, 23, 45, 0.82);
+      --line: rgba(255, 248, 231, 0.2);
+    }
+    * { box-sizing: border-box; }
+    body {
+      position: relative;
+      isolation: isolate;
+      margin: 0;
+      min-height: 100vh;
+      color: var(--cream);
+      background: var(--navy);
+      font-family: Georgia, "Times New Roman", serif;
+    }
+    body::before {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background: url("L.jpg") center / 600px no-repeat;
+      content: "";
+      opacity: 0.1;
+      mix-blend-mode: screen;
+      pointer-events: none;
+    }
+    .page { position: relative; z-index: 1; width: min(1100px, calc(100% - 36px)); margin: auto; padding: 28px 0 60px; }
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 18px 22px;
+      margin-bottom: 18px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(7, 23, 45, 0.86);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 16px 40px rgba(2, 8, 16, 0.28);
+    }
+    .brand { color: var(--gold); font: bold 0.82rem Arial, sans-serif; letter-spacing: 0.08em; }
+    nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+    nav a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 40px;
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--cream);
+      font: 0.72rem Arial, sans-serif;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+    }
+    nav a:hover, nav a[aria-current="page"] { border-color: var(--gold); background: rgba(231, 184, 75, 0.12); }
+    .logo { width: 42px; height: 42px; border: 3px solid var(--gold); border-radius: 50%; background: var(--maroon); object-fit: cover; }
+    .eyebrow { margin-top: 36px; color: var(--gold); font: bold 0.75rem Arial, sans-serif; letter-spacing: 0.16em; text-transform: uppercase; }
+    h1 { max-width: 780px; margin: 12px 0 14px; font-size: clamp(3rem, 8vw, 6.4rem); line-height: 0.9; letter-spacing: -0.05em; }
+    .lead { max-width: 680px; color: var(--muted); font: 1.05rem/1.6 Arial, sans-serif; }
+    .section-title { margin: 48px 0 10px; color: var(--gold); font-size: 1.7rem; }
+    .section-intro { max-width: 680px; color: var(--muted); font: 0.95rem/1.6 Arial, sans-serif; }
+    .membership-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 22px; }
+    .membership-card { padding: 22px; border: 1px solid var(--line); border-radius: 14px; background: var(--panel); transition: transform 0.2s, border-color 0.2s; }
+    .membership-card:hover { transform: translateY(-4px); border-color: var(--gold); }
+    .membership-card .type { color: var(--gold); font: bold 0.72rem Arial, sans-serif; letter-spacing: 0.12em; text-transform: uppercase; }
+    h3 { margin: 12px 0 8px; font-size: 1.3rem; }
+    .membership-card p, .membership-card li { color: var(--muted); font: 0.9rem/1.55 Arial, sans-serif; }
+    .membership-card ul { padding-left: 19px; margin-bottom: 0; }
+    .signup { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 32px; margin-top: 28px; padding: 28px; border: 1px solid var(--line); border-radius: 16px; background: var(--panel); }
+    .signup h2 { margin: 0 0 12px; color: var(--gold); font-size: 1.5rem; }
+    .signup-copy p, .form-note { color: var(--muted); font: 0.9rem/1.6 Arial, sans-serif; }
+    form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    .field { display: grid; gap: 7px; }
+    [hidden] { display: none !important; }
+    .field.full { grid-column: 1 / -1; }
+    label { font: bold 0.78rem Arial, sans-serif; }
+    input, select, textarea {
+      width: 100%;
+      min-height: 44px;
+      padding: 11px 13px;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      color: var(--cream);
+      background: rgba(0, 0, 0, 0.2);
+      font: 0.95rem Arial, sans-serif;
+    }
+    select option { color: #10233a; }
+    textarea { min-height: 96px; resize: vertical; }
+    input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-visible, nav a:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+    button { grid-column: 1 / -1; justify-self: start; min-height: 44px; padding: 11px 20px; border: 0; border-radius: 999px; color: var(--navy); background: var(--gold); font: bold 0.9rem Arial, sans-serif; cursor: pointer; }
+    button:hover { background: var(--cream); }
+    footer { margin-top: 44px; color: var(--muted); font: 0.8rem Arial, sans-serif; }
+    @media (max-width: 760px) {
+      header { position: static; flex-direction: column; }
+      .membership-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .signup { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 520px) {
+      .page { width: min(100% - 26px, 540px); }
+      h1 { font-size: clamp(2.25rem, 12vw, 3.4rem); }
+      .membership-grid, form { grid-template-columns: 1fr; }
+      .field.full, button { grid-column: 1; }
+      .signup { padding: 22px; }
+    }
+  </style>
+  <link rel="stylesheet" href="site.css">
+    <link rel="icon" type="image/png" href="club-badge-favicon.png">
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="brand">CRUSADERS / SPORTS CLUB</div>
+      <nav aria-label="Club pages">
+        <a href="dewald.web.html">Home</a>
+        <a href="info-events.html">Events</a>
+        <a href="fixtures-results.html">Fixtures</a>
+        <a href="club-history.html">Club History</a>
+        <a href="players-coaches.html">Rugby</a>
+        <a href="cricket.html">Cricket</a>
+        <a href="squash.html">Squash</a>
+        <a href="hockey.html">Hockey</a>
+        <a href="club-memberships.html" aria-current="page">Memberships</a>
+      </nav>
+      <img class="logo" src="L.jpg" alt="Crusaders Sports Club logo">
+    </header>
+    <main>
+      <div class="eyebrow">Find your team · Find your people</div>
+      <h1>Club memberships.</h1>
+      <p class="lead">Join Crusaders as a player, a family, or a supporter. Choose a sporting membership to take part in one of our teams, or a regular social membership to be part of club life.</p>
+
+      <section aria-labelledby="membership-options">
+        <h2 class="section-title" id="membership-options">Choose how you belong</h2>
+        <p class="section-intro">Membership fees and availability are confirmed by the club when you register. Select the option that best fits you in the signup form below.</p>
+        <div class="membership-grid">
+          <article class="membership-card">
+            <div class="type">Sporting membership</div>
+            <h3>Rugby</h3>
+            <p>For players joining Crusaders rugby training and teams.</p>
+            <ul><li>Team training and fixtures</li><li>Club player community</li></ul>
+          </article>
+          <article class="membership-card">
+            <div class="type">Sporting membership</div>
+            <h3>Cricket</h3>
+            <p>For players looking to train and compete with our cricket teams.</p>
+            <ul><li>Cricket team participation</li><li>Training and match updates</li></ul>
+          </article>
+          <article class="membership-card">
+            <div class="type">Sporting membership</div>
+            <h3>Hockey</h3>
+            <p>For players who want to join a Crusaders hockey team.</p>
+            <ul><li>Hockey training and fixtures</li><li>Club player community</li></ul>
+          </article>
+          <article class="membership-card">
+            <div class="type">Sporting membership</div>
+            <h3>Squash</h3>
+            <p>For players joining our squash community and activities.</p>
+            <ul><li>Squash club participation</li><li>Training and club updates</li></ul>
+          </article>
+          <article class="membership-card">
+            <div class="type">Regular membership</div>
+            <h3>Social member</h3>
+            <p>For supporters and community members who want to be involved off the field.</p>
+            <ul><li>Club news and event updates</li><li>Connect with the Crusaders community</li></ul>
+          </article>
+          <article class="membership-card">
+            <div class="type">Regular membership</div>
+            <h3>Family membership</h3>
+            <p>For households who want to support the club and take part in community events together.</p>
+            <ul><li>Family-friendly club activities</li><li>One point of contact for your household</li></ul>
+          </article>
+        </div>
+      </section>
+
+      <section aria-labelledby="signup-title">
+        <h2 class="section-title" id="signup-title">Sign up</h2>
+        <div class="signup">
+          <div class="signup-copy">
+            <h2>Start your membership request</h2>
+            <p>Tell us which membership you are interested in. The club can then follow up about availability, fees, and any next steps.</p>
+            <p class="form-note">Send us your details and the club will follow up about availability, fees, and next steps. Submitting this form sends your information to the club through Formspree.</p>
+          </div>
+          <form id="membershipForm" action="https://formspree.io/f/xwlvvlda" method="POST">
+            <input type="hidden" name="_subject" value="New Crusaders membership request">
+            <div class="field">
+              <label for="fullName">Full name</label>
+              <input id="fullName" name="fullName" autocomplete="name" required>
+            </div>
+            <div class="field">
+              <label for="email">Email address</label>
+              <input id="email" name="email" type="email" autocomplete="email" required>
+            </div>
+            <div class="field">
+              <label for="membershipType">Membership type</label>
+              <select id="membershipType" name="membershipType" required>
+                <option value="">Choose a membership</option>
+                <option value="sporting">Sporting membership</option>
+                <option value="social">Social membership</option>
+                <option value="family">Family membership</option>
+              </select>
+            </div>
+            <div class="field" id="sportField" hidden>
+              <label for="sport">Sport</label>
+              <select id="sport" name="sport">
+                <option value="">Choose a sport</option>
+                <option>Rugby</option>
+                <option>Cricket</option>
+                <option>Hockey</option>
+                <option>Squash</option>
+              </select>
+            </div>
+            <div class="field full">
+              <label for="message">Anything else you would like us to know? <span>(optional)</span></label>
+              <textarea id="message" name="message"></textarea>
+            </div>
+            <button type="submit">Send membership request</button>
+          </form>
+        </div>
+      </section>
+    </main>
+    <footer>Crusaders Sports Club · One club, one family.</footer>
+  </div>
+  <script>
+    const membershipType = document.querySelector("#membershipType");
+    const sportField = document.querySelector("#sportField");
+    const sportSelect = document.querySelector("#sport");
+    membershipType.addEventListener("change", () => {
+      const isSporting = membershipType.value === "sporting";
+      sportField.hidden = !isSporting;
+      sportSelect.required = isSporting;
+      if (!isSporting) sportSelect.value = "";
+    });
+  </script>
+</body>
+</html>
